@@ -18,7 +18,7 @@ def clear():
 
 def choose_category():
     """
-
+    Choose category.
     """
     print("Select your category:\n")
     print("1. Sports")
@@ -33,15 +33,15 @@ def choose_category():
             if category_chosen == "1":
                 clear()
                 print("You have chosen Sports!")
-                break
+                return "sport"
             elif category_chosen == "2":
                 clear()
                 print("You have chosen Vegetables!")
-                break
+                return "veg"
             elif category_chosen == "3":
                 clear()
                 print("You have chosen Occupations!")
-                break
+                return "job"
             else:
                 raise ValueError(
                     "Please enter 1, 2 or 3"
@@ -52,13 +52,24 @@ def choose_category():
             return choose_category()
 
 
-def play():
+def hangman():
     """
     Runs main game.
     Choose a category.
+    Choose a word.
     Play hangman.
     """
-    choose_category()
+    category = choose_category()
+    word = ""
+
+    if category == "sport":
+        word = random.choice(sports).upper()
+    elif category == "veg":
+        word = random.choice(vegetbales).upper()
+    elif category == "job":
+        word = random.choice(occupations).upper()
+
+    print(word)
 
 
 def instructions():
@@ -114,7 +125,7 @@ def main_menu():
         try:
             if navigate_main == "1":
                 clear()
-                play()
+                hangman()
                 break
             elif navigate_main == "2":
                 clear()
