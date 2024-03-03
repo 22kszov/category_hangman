@@ -3,6 +3,7 @@ Categories Hangman
 """
 
 import os
+import random
 from words import sports
 from words import vegetbales
 from words import occupations
@@ -13,6 +14,51 @@ def clear():
     Clears the screen.
     """
     os.system("clear")
+
+
+def choose_category():
+    """
+
+    """
+    print("Select your category:\n")
+    print("1. Sports")
+    print("2. Vegetables")
+    print("3. Occupations\n ")
+
+    category_chosen = input("Enter your selection: ")
+
+    # Validates input and loops input box until valid data is input
+    while True:
+        try:
+            if category_chosen == "1":
+                clear()
+                print("You have chosen Sports!")
+                break
+            elif category_chosen == "2":
+                clear()
+                print("You have chosen Vegetables!")
+                break
+            elif category_chosen == "3":
+                clear()
+                print("You have chosen Occupations!")
+                break
+            else:
+                raise ValueError(
+                    "Please enter 1, 2 or 3"
+                )
+        except ValueError as e:
+            clear()
+            print(e)
+            return choose_category()
+
+
+def play():
+    """
+    Runs main game.
+    Choose a category.
+    Play hangman.
+    """
+    choose_category()
 
 
 def instructions():
@@ -27,7 +73,7 @@ def instructions():
     print("If Hangman is fully revealed you have lost the game\n")
     print("Good Luck!\n")
     print("1. Play Hangman")
-    print("2. Exit Game")
+    print("2. Exit Game\n")
 
     navigate_instructions = input("Enter your selection: ")
 
@@ -59,7 +105,7 @@ def main_menu():
     """
     print("Welcome to Categories Hangman\n")
     print("1. Play Hangman")
-    print("2. Read Instructions")
+    print("2. Read Instructions\n")
 
     navigate_main = input("Enter your selection: ")
 
@@ -68,7 +114,7 @@ def main_menu():
         try:
             if navigate_main == "1":
                 clear()
-                # play()
+                play()
                 break
             elif navigate_main == "2":
                 clear()
