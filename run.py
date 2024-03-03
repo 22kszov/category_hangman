@@ -59,6 +59,11 @@ def hangman():
     Choose a word.
     Play hangman.
     """
+    lives = 7
+    mistakes_allowed = 0
+    letters_guessed = []
+    wrong_letters = []
+
     category = choose_category()
     word = ""
 
@@ -69,7 +74,26 @@ def hangman():
     elif category == "job":
         word = random.choice(occupations).upper()
 
-    print(word)
+    word_letters = list(word)
+
+    print("\n")
+    print("--------------------------------------------------")
+    print(f"The word has {len(word)} letters!")
+    print("\n")
+
+    while lives > mistakes_allowed:
+        print("Letters guessed: ", end="")
+        for letter in wrong_letters:
+            print(f"{letter}, ", end="")
+        print("\n")
+        print(f"Lives remaining: {lives - mistakes_allowed}")
+        print("\n")
+        user_letter = input("Enter your guess: ").upper()
+
+        while user_letter in letters_guessed or user_letter in wrong_letters:
+            print("\n")
+            print("You have already guessed this letter. Try again!")
+            user_letter = input("Enter your guess: ").upper()
 
 
 def instructions():
