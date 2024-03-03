@@ -83,6 +83,40 @@ def clear():
     os.system("clear")
 
 
+def restart():
+    """
+    Gives prompt to restart or quit game after win/loss
+    """
+    print("\n")
+    print("Would you like the play again?")
+    print("\n")
+    print("1. Yes")
+    print("2. No")
+    print("\n")
+
+    restart_data = input("Enter your selection: ")
+
+    # Validates input and loops input box until valid data is input
+    while True:
+        try:
+            if restart_data == "1":
+                clear()
+                main_menu()
+                break
+            elif restart_data == "2":
+                clear()
+                print("Thanks for playing!")
+                break
+            else:
+                raise ValueError(
+                    "Please enter 1 or 2"
+                )
+        except ValueError as e:
+            clear()
+            print(e)
+            return restart_data
+
+
 def choose_category():
     """
     Choose category.
@@ -196,11 +230,13 @@ def hangman():
         if len(letters_guessed) == len(word_letters):
             print("\n")
             print("You Win!")
+            restart()
             break
 
     if mistakes_made == lives:
         print("\n")
         print("You Lose!")
+        restart()
 
 
 def instructions():
