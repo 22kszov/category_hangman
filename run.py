@@ -25,7 +25,31 @@ def instructions():
     print("Be careful tho... If you guess incorrectly you will lose a life")
     print("Everytime you lose a life more of Hangman will be seen")
     print("If Hangman is fully revealed you have lost the game\n")
-    print("Good Luck!")
+    print("Good Luck!\n")
+    print("1. Play Hangman")
+    print("2. Exit Game")
+
+    navigate_instructions = input("Enter your selection: ")
+
+    # Validates input and loops input box until valid data is input
+    while True:
+        try:
+            if navigate_instructions == "1":
+                clear()
+                main_menu()
+                break
+            elif navigate_instructions == "2":
+                clear()
+                print("Thanks for playing!")
+                break
+            else:
+                raise ValueError(
+                    "Please enter 1 or 2"
+                )
+        except ValueError as e:
+            clear()
+            print(e)
+            return instructions()
 
 
 def main_menu():
@@ -35,10 +59,11 @@ def main_menu():
     """
     print("Welcome to Categories Hangman\n")
     print("1. Play Hangman")
-    print("2. Read Instructions\n")
+    print("2. Read Instructions")
 
     navigate_main = input("Enter your selection: ")
 
+    # Validates input and loops input box until valid data is input
     while True:
         try:
             if navigate_main == "1":
