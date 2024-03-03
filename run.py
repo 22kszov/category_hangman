@@ -4,9 +4,12 @@ Categories Hangman
 
 import os
 import random
-from words import sports
-from words import vegetbales
-from words import occupations
+import colorama
+from colorama import Fore
+from words import sports, vegetbales, occupations
+
+
+colorama.init(autoreset=True)
 
 # Graphics from stack overflow
 # (https://stackoverflow.com/questions/37514165/python-need-to-display-graphic-for-hangman-game)
@@ -88,13 +91,13 @@ def restart():
     Gives prompt to restart or quit game after win/loss
     """
     print("\n")
-    print("Would you like the play again?")
+    print(f"{Fore.YELLOW}Would you like the play again?")
     print("\n")
-    print("1. Yes")
-    print("2. No")
+    print(f"{Fore.BLUE}1. Yes")
+    print(f"{Fore.BLUE}2. No")
     print("\n")
 
-    restart_data = input("Enter your selection: ")
+    restart_data = input(f"{Fore.YELLOW}Enter your selection: ")
 
     # Validates input and loops input box until valid data is input
     while True:
@@ -105,11 +108,11 @@ def restart():
                 break
             elif restart_data == "2":
                 clear()
-                print("Thanks for playing!")
+                print(f"{Fore.YELLOW}Thanks for playing!")
                 break
             else:
                 raise ValueError(
-                    "Please enter 1 or 2"
+                    f"{Fore.RED}Please enter 1 or 2"
                 )
         except ValueError as e:
             clear()
@@ -121,31 +124,31 @@ def choose_category():
     """
     Choose category.
     """
-    print("Select your category:\n")
-    print("1. Sports")
-    print("2. Vegetables")
-    print("3. Occupations\n ")
+    print(f"{Fore.YELLOW}Select your category:\n")
+    print(f"{Fore.BLUE}1. Sports")
+    print(f"{Fore.BLUE}2. Vegetables")
+    print(f"{Fore.BLUE}3. Occupations\n ")
 
-    category_chosen = input("Enter your selection: ")
+    category_chosen = input(f"{Fore.YELLOW}Enter your selection: ")
 
     # Validates input and loops input box until valid data is input
     while True:
         try:
             if category_chosen == "1":
                 clear()
-                print("You have chosen Sports!")
+                print(f"{Fore.GREEN}You have chosen Sports!")
                 return "sport"
             elif category_chosen == "2":
                 clear()
-                print("You have chosen Vegetables!")
+                print(f"{Fore.GREEN}You have chosen Vegetables!")
                 return "veg"
             elif category_chosen == "3":
                 clear()
-                print("You have chosen Occupations!")
+                print(f"{Fore.GREEN}You have chosen Occupations!")
                 return "job"
             else:
                 raise ValueError(
-                    "Please enter 1, 2 or 3"
+                    f"{Fore.RED}Please enter 1, 2 or 3"
                 )
         except ValueError as e:
             clear()
@@ -178,8 +181,8 @@ def hangman():
     word_letters = list(word)
 
     print("\n")
-    print("--------------------------------------------------")
-    print(f"The word has {len(word)} letters!")
+    print(f"{Fore.MAGENTA}--------------------------------------------------")
+    print(f"{Fore.YELLOW}The word has {len(word)} letters!")
     print("\n")
 
     while lives > mistakes_made:
@@ -189,21 +192,23 @@ def hangman():
         print("\n")
         print(f"Lives remaining: {lives - mistakes_made}")
         print("\n")
-        user_letter = input("Enter your guess: ").upper()
+        user_letter = input(f"{Fore.YELLOW}Enter your guess: ").upper()
 
         while len(user_letter) != 1 or user_letter.isnumeric():
             print("\n")
-            print("Please guess a single letter! Try again!")
-            user_letter = input("Enter your guess: ").upper()
+            print(f"{Fore.RED}Please guess a single letter! Try again!")
+            user_letter = input(f"{Fore.YELLOW}Enter your guess: ").upper()
 
         while user_letter in letters_guessed or user_letter in wrong_letters:
             print("\n")
-            print("You have already guessed this letter. Try again!")
-            user_letter = input("Enter your guess: ").upper()
+            print(f"{Fore.RED}You have already guessed this letter. Try again!")
+            user_letter = input(f"{Fore.YELLOW}Enter your guess: ").upper()
             while len(user_letter) != 1 or user_letter.isnumeric():
                 print("\n")
-                print("Please guess a single letter! Try again!")
-                user_letter = input("Enter your guess: ").upper()
+                print(f"{Fore.RED}Please guess a single letter! Try again!")
+                user_letter = input(f"{Fore.YELLOW}Enter your guess: ").upper()
+
+        clear()
 
         if user_letter not in word_letters:
             mistakes_made += 1
@@ -220,22 +225,22 @@ def hangman():
             else:
                 print("_ ", end="")
 
-        clear()
         print("\n")
         if mistakes_made:
             print(graphic[mistakes_made - 1])
         print("\n")
-        print("--------------------------------------------------")
+        print(f"{Fore.MAGENTA}--------------------------------------------------")
 
         if len(letters_guessed) == len(word_letters):
             print("\n")
-            print("You Win!")
+            print(f"{Fore.GREEN}You Win!")
             restart()
             break
 
     if mistakes_made == lives:
         print("\n")
-        print("You Lose!")
+        print(f"{Fore.RED}You Lose!")
+        print(f"{Fore.RED}The word was {word}")
         restart()
 
 
@@ -243,17 +248,17 @@ def instructions():
     """
     Display the instructions menu to terrminal.
     """
-    print("The goal of the game is simple:\n")
-    print("Guess letters from the english alphabet")
-    print("If your letter is in the word it's location(s) will be revealed")
-    print("Be careful tho... If you guess incorrectly you will lose a life")
-    print("Everytime you lose a life more of Hangman will be seen")
-    print("If Hangman is fully revealed you have lost the game\n")
-    print("Good Luck!\n")
-    print("1. Play Hangman")
-    print("2. Exit Game\n")
+    print(f"{Fore.GREEN}The goal of the game is simple:\n")
+    print(f"{Fore.GREEN}Guess letters from the english alphabet")
+    print(f"{Fore.GREEN}If your letter is in the word it's location(s) will be revealed")
+    print(f"{Fore.GREEN}Be careful tho... If you guess incorrectly you will lose a life")
+    print(f"{Fore.GREEN}Everytime you lose a life more of Hangman will be seen")
+    print(f"{Fore.GREEN}If Hangman is fully revealed you have lost the game\n")
+    print(f"{Fore.GREEN}Good Luck!\n")
+    print(f"{Fore.BLUE}1. Play Hangman")
+    print(f"{Fore.BLUE}2. Exit Game\n")
 
-    navigate_instructions = input("Enter your selection: ")
+    navigate_instructions = input(f"{Fore.YELLOW}Enter your selection: ")
 
     # Validates input and loops input box until valid data is input
     while True:
@@ -264,11 +269,11 @@ def instructions():
                 break
             elif navigate_instructions == "2":
                 clear()
-                print("Thanks for playing!")
+                print(f"{Fore.YELLOW}Thanks for playing!")
                 break
             else:
                 raise ValueError(
-                    "Please enter 1 or 2"
+                    f"{Fore.RED}Please enter 1 or 2"
                 )
         except ValueError as e:
             clear()
@@ -281,11 +286,11 @@ def main_menu():
     Displays sarting screen to the game.
     All other functions are executed from here.
     """
-    print("Welcome to Categories Hangman\n")
-    print("1. Play Hangman")
-    print("2. Read Instructions\n")
+    print(f"{Fore.YELLOW}Welcome to Categories Hangman\n")
+    print(f"{Fore.BLUE}1. Play Hangman")
+    print(f"{Fore.BLUE}2. Read Instructions\n")
 
-    navigate_main = input("Enter your selection: ")
+    navigate_main = input(f"{Fore.YELLOW}Enter your selection: ")
 
     # Validates input and loops input box until valid data is input
     while True:
@@ -300,7 +305,7 @@ def main_menu():
                 break
             else:
                 raise ValueError(
-                    "Please enter 1 or 2"
+                    f"{Fore.RED}Please enter 1 or 2"
                 )
         except ValueError as e:
             clear()
