@@ -8,6 +8,73 @@ from words import sports
 from words import vegetbales
 from words import occupations
 
+# Graphics from stack overflow
+# (https://stackoverflow.com/questions/37514165/python-need-to-display-graphic-for-hangman-game)
+graphic = [
+    """
+            +-------+
+            |
+            |
+            | 
+            |
+            |
+         ==============
+        """,
+    """
+            +-------+
+            |       |
+            |       O
+            | 
+            |
+            |
+         ==============
+        """,
+    """
+            +-------+
+            |       |
+            |       O
+            |       |
+            |
+            |
+         ==============
+        """,
+    """
+            +-------+
+            |       |
+            |       O
+            |      /|
+            |
+            |
+         ==============
+        """,
+    """
+            +-------+
+            |       |
+            |       O
+            |      /|\ 
+            |
+            |
+         ==============
+        """,
+    """
+            +-------+
+            |       |
+            |       O
+            |      /|\ 
+            |      /
+            |
+         ==============
+        """,
+    """
+            +-------+
+            |       |
+            |       O
+            |      /|\ 
+            |      / \ 
+            |
+         ==============
+        """]
+
 
 def clear():
     """
@@ -60,7 +127,7 @@ def hangman():
     Play hangman.
     """
     lives = 7
-    mistakes_allowed = 0
+    mistakes_made = 0
     letters_guessed = []
     wrong_letters = []
 
@@ -81,12 +148,12 @@ def hangman():
     print(f"The word has {len(word)} letters!")
     print("\n")
 
-    while lives > mistakes_allowed:
+    while lives > mistakes_made:
         print("Letters guessed: ", end="")
         for letter in wrong_letters:
             print(f"{letter}, ", end="")
         print("\n")
-        print(f"Lives remaining: {lives - mistakes_allowed}")
+        print(f"Lives remaining: {lives - mistakes_made}")
         print("\n")
         user_letter = input("Enter your guess: ").upper()
 
@@ -94,6 +161,37 @@ def hangman():
             print("\n")
             print("You have already guessed this letter. Try again!")
             user_letter = input("Enter your guess: ").upper()
+
+        if user_letter not in word_letters:
+            mistakes_made += 1
+            wrong_letters.append(user_letter)
+
+        print("\n")
+        print("Word: ", end="")
+
+        for letter in word_letters:
+            if user_letter == letter:
+                letters_guessed.append(user_letter)
+            if letter in letters_guessed:
+                print(f"{letter} ", end="")
+            else:
+                print("_ ", end="")
+
+        clear()
+        print("\n")
+        if mistakes_made:
+            print(graphic[mistakes_made - 1])
+        print("\n")
+        print("--------------------------------------------------")
+
+        if len(letters_guessed) == len(word_letters):
+            print("\n")
+            print("You Win!")
+            break
+
+    if mistakes_made == lives:
+        print("\n")
+        print("You Lose!")
 
 
 def instructions():
