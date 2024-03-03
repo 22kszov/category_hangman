@@ -157,10 +157,19 @@ def hangman():
         print("\n")
         user_letter = input("Enter your guess: ").upper()
 
+        while len(user_letter) != 1 or user_letter.isnumeric():
+            print("\n")
+            print("Please guess a single letter! Try again!")
+            user_letter = input("Enter your guess: ").upper()
+
         while user_letter in letters_guessed or user_letter in wrong_letters:
             print("\n")
             print("You have already guessed this letter. Try again!")
             user_letter = input("Enter your guess: ").upper()
+            while len(user_letter) != 1 or user_letter.isnumeric():
+                print("\n")
+                print("Please guess a single letter! Try again!")
+                user_letter = input("Enter your guess: ").upper()
 
         if user_letter not in word_letters:
             mistakes_made += 1
