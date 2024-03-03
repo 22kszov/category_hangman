@@ -201,7 +201,7 @@ def hangman():
 
         while user_letter in letters_guessed or user_letter in wrong_letters:
             print("\n")
-            print(f"{Fore.RED}You have already guessed this letter. Try again!")
+            print(f"{Fore.RED}You have already guessed this letter.")
             user_letter = input(f"{Fore.YELLOW}Enter your guess: ").upper()
             while len(user_letter) != 1 or user_letter.isnumeric():
                 print("\n")
@@ -229,7 +229,7 @@ def hangman():
         if mistakes_made:
             print(graphic[mistakes_made - 1])
         print("\n")
-        print(f"{Fore.MAGENTA}--------------------------------------------------")
+        print(f"{Fore.MAGENTA}-----------------------------------------------")
 
         if len(letters_guessed) == len(word_letters):
             print("\n")
@@ -250,9 +250,8 @@ def instructions():
     """
     print(f"{Fore.GREEN}The goal of the game is simple:\n")
     print(f"{Fore.GREEN}Guess letters from the english alphabet")
-    print(f"{Fore.GREEN}If your letter is in the word it's location(s) will be revealed")
-    print(f"{Fore.GREEN}Be careful tho... If you guess incorrectly you will lose a life")
-    print(f"{Fore.GREEN}Everytime you lose a life more of Hangman will be seen")
+    print(f"{Fore.GREEN}Be careful tho...")
+    print(f"{Fore.GREEN}If you guess incorrectly you will lose a life")
     print(f"{Fore.GREEN}If Hangman is fully revealed you have lost the game\n")
     print(f"{Fore.GREEN}Good Luck!\n")
     print(f"{Fore.BLUE}1. Play Hangman")
